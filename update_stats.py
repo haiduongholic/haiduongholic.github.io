@@ -42,16 +42,22 @@ def main() -> int:
     data = json.loads(m.group(2))
     ok, author = 0, {}
     for vid in list(data["views"]):
-        try:
-            got = fetch(vid)
-        except Exception as e:  # network error, TikTok block, changed page layout
-            print("skip", vid, type(e).__name__, e)
-            got = None
+        got = None
+        for attempt in range(4):  # TikTok sometimes serves a page without data; wait and retry
+            try:
+                got = fetch(vid)
+            except Exception as e:  # network error, TikTok block, changed page layout
+                print("retry", vid, type(e).__name__, e)
+            if got:
+                break
+            time.sleep(4 + attempt * 6)
         if got:
             data["views"][vid] = got[0]
             author = author or got[1]
             ok += 1
-        time.sleep(1.5)
+        else:
+            print("skip", vid, "(kept last value)")
+        time.sleep(3)
     if not ok:
         print("No video could be read; page left unchanged.")
         return 1
