@@ -113,10 +113,21 @@ h1, h2, h3 { text-wrap: balance; margin: 0; line-height: 1.08; }
   .stat:nth-child(n+3) { border-top: 1px solid var(--line); }
 }
 .source { font-size: 12.5px; color: var(--muted); margin-top: 10px; }
-.with { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: baseline; }
-.with .eyebrow { margin-right: 6px; }
-.with span { font-weight: 700; font-size: 15px; }
-.with span:not(:last-child)::after { content: "·"; margin-left: 18px; color: var(--line); }
+.with { margin-top: 40px; }
+.with-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 16px; margin-bottom: 16px; }
+.with-head small { color: var(--muted); font-size: 13.5px; }
+.with-head small b { color: var(--crimson); font-variant-numeric: tabular-nums; }
+.brands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+@media (min-width: 1000px) { .brands { grid-template-columns: repeat(7, 1fr); } }
+.brands li { min-width: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 3px; transition: border-color .15s ease, transform .15s ease; }
+.brands li:hover { border-color: var(--crimson); transform: translateY(-2px); }
+.brands b { font-size: 15px; font-weight: 800; letter-spacing: -.01em; line-height: 1.25; }
+.brands span { font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--navy); }
+@media (max-width: 480px) {
+  .brands { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .brands li { padding: 12px; }
+  .brands b { font-size: 14px; }
+}
 
 /* Section heads */
 section.block { padding-block: 64px; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
@@ -283,8 +294,26 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wr
       </div>
       <p class="source">Số liệu tự động cập nhật từ kênh TikTok @haiduongholic. Lần cập nhật gần nhất: <span class="st-date">13/11/2026</span>.</p>
       <div class="with">
-        <span class="eyebrow">Đã đồng hành cùng</span>
-        <span>AEON BETA Cinema</span><span>Adidas Aeon</span><span>Manwah</span><span>GoGi House</span><span>Chả Cá Hàng Sơn</span><span>Mỹ Vị Lạc</span><span>Kính mắt Anna</span><span>Langfarm</span><span>Atino</span><span>Chixmax</span><span>Hali Buffet</span><span>Ngoại ngữ Aloha</span><span>Thu Cúc TCI</span><span>Tous les Jours</span>
+        <div class="with-head">
+          <span class="eyebrow">Đã đồng hành cùng</span>
+          <small><b>14</b> thương hiệu tại Hải Dương</small>
+        </div>
+        <ul class="brands">
+          <li><b>AEON BETA Cinema</b><span>Rạp phim</span></li>
+          <li><b>Adidas Aeon</b><span>Thể thao</span></li>
+          <li><b>Manwah</b><span>Lẩu Đài Loan</span></li>
+          <li><b>GoGi House</b><span>Nướng Hàn Quốc</span></li>
+          <li><b>Chả Cá Hàng Sơn</b><span>Nhà hàng</span></li>
+          <li><b>Mỹ Vị Lạc</b><span>Pizza & gà nướng</span></li>
+          <li><b>Kính mắt Anna</b><span>Kính mắt</span></li>
+          <li><b>Langfarm</b><span>Đặc sản</span></li>
+          <li><b>Atino</b><span>Thời trang</span></li>
+          <li><b>Chixmax</b><span>Gà rán</span></li>
+          <li><b>Hali Buffet</b><span>Buffet lẩu nướng</span></li>
+          <li><b>Ngoại ngữ Aloha</b><span>Giáo dục</span></li>
+          <li><b>Thu Cúc TCI</b><span>Y tế</span></li>
+          <li><b>Tous les Jours</b><span>Bánh ngọt</span></li>
+        </ul>
       </div>
     </div>
   </div>
