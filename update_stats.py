@@ -33,7 +33,10 @@ def fetch(video_id: str):
     if not m:
         return None
     item = json.loads(m.group(1))["__DEFAULT_SCOPE__"]["webapp.video-detail"]["itemInfo"]["itemStruct"]
-    return int(item["stats"]["playCount"]), item.get("authorStats") or {}
+    st = item["stats"]
+    engagement = [int(st.get("diggCount") or 0), int(st.get("commentCount") or 0),
+                  int(st.get("shareCount") or 0), int(st.get("collectCount") or 0)]
+    return int(st["playCount"]), item.get("authorStats") or {}, engagement
 
 
 def main() -> int:
@@ -53,6 +56,7 @@ def main() -> int:
             time.sleep(4 + attempt * 6)
         if got:
             data["views"][vid] = got[0]
+            data.setdefault("eng", {})[vid] = got[2]  # likes, comments, shares, saves
             author = author or got[1]
             ok += 1
         else:

@@ -46,8 +46,8 @@ def build() -> None:
     out = re.sub(r"img/[a-z0-9]+\.(?:jpg|webp|png)",
                  lambda m: uri(ROOT / m.group(0)) if (ROOT / m.group(0)).exists() else m.group(0), src)
     imgs = {p.stem[1:]: uri(p) for p in (ROOT / "img").glob("v*.jpg")}
-    out = out.replace("'<div class=\"thumb\"><img loading=\"lazy\" src=\"img/v' + x.img + '.jpg\"",
-                      "'<div class=\"thumb\"><img loading=\"lazy\" src=\"' + IMG[x.img] + '\"")
+    out = out.replace('function src(x) { return "img/v" + x.img + ".jpg"; }',
+                      "function src(x) { return IMG[x.img]; }")
     out = out.replace("(function () {\n  var U", "var IMG = " + json.dumps(imgs) + ";\n(function () {\n  var U", 1)
     assert "img/" not in out.replace("data:image/", ""), "an image path was left unembedded"
     (DOCS / "HaiDuongHolic-Portfolio.html").write_text(wrap(out), encoding="utf-8")
